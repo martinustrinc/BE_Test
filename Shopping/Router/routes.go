@@ -1,26 +1,26 @@
 package Router
 
 import (
-	"fmt"
-	//"github.com/gin-gonic/gin"
 	"github.com/gorilla/mux"
 	"github.com/martinustrinc/BE_Test/Shopping/Controller"
 	"net/http"
-	"strconv"
 )
 
-func ApiController(incomingRoute *Server) {
+func (server *Server) ApiController() {
 	handler := mux.NewRouter()
 
 	//handler.HandleFunc(setPath("/users/signup"), ).Methods("POST", "OPTIONS")
 	//handler.HandleFunc(setPath("/users/login"), ).Methods("POST", "OPTIONS")
-	handler.HandleFunc(setPath("/product/addproduct"), Controller.AddProduct()).Methods("POST", "OPTIONS")
-	handler.HandleFunc(setPath("/product/getproduct"), ).Methods("POST", "OPTIONS")
-	handler.HandleFunc(setPath("/product/search"), ).Methods("POST", "OPTIONS")
+	//handler.HandleFunc(setPath("/product/insert"), Controller.AddProduct()).Methods("POST", "OPTIONS")
+	handler.HandleFunc(setPath("/products"), Controller.GetProduct()).Methods("GET", "OPTIONS")
+	handler.HandleFunc(setPath("/product/search"), Controller.GetProductByID()).Methods("GET", "OPTIONS")
 
 
-	handler.Use(Middleware)
-	fmt.Println(http.ListenAndServe(":"+strconv.Itoa(port), handler))
+	staticFileDirectory := http.Dir("./assets/")
+	staticFileHandler := http.StripPrefix("/public/", http.FileServer(staticFileDirectory))
+	server.Router.PathPrefix("/public/").Handler(staticFileHandler).Methods("GET")
+	//handler.Use(Middleware)
+	//fmt.Println(http.ListenAndServe(":"+strconv.Itoa(port), handler))
 }
 
 func setPath(path string) string {

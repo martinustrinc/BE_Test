@@ -1,7 +1,7 @@
 package BE_Test
 
 import (
-	"github.com/martinustrinc/BE_Test"
+	"github.com/martinustrinc/BE_Test/Shopping"
 	//"github.com/gin-gonic/gin"
 	//"os"
 )
