@@ -1,4 +1,4 @@
-package Controller
+package controller
 
 import (
 	"fmt"
@@ -7,9 +7,8 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
-	//"github.com/martinustrinc/BE_Test/Shopping"
-	"github.com/martinustrinc/BE_Test/Shopping/Database"
-	"github.com/martinustrinc/BE_Test/Shopping/Model"
+	"github.com/martinustrinc/BE_Test/shopping/database"
+	"github.com/martinustrinc/BE_Test/shopping/model"
 	"github.com/urfave/cli"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
@@ -64,8 +63,8 @@ func (server *Server) initializeDB(dbConfig DBConfig) {
 }
 
 func (server *Server) dbMigrate() {
-	for _, model := range Model.RegisterModels() {
-		err := server.DB.Debug().AutoMigrate(model.Model)
+	for _, mod := range model.RegisterModels() {
+		err := server.DB.Debug().AutoMigrate(mod.Model)
 
 		if err != nil {
 			log.Fatal(err)

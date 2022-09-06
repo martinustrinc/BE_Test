@@ -8,12 +8,12 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/gosimple/slug"
-	"github.com/martinustrinc/Shopping/Model"
+	"github.com/martinustrinc/shopping/model"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 )
 
-func ProductDummy(db *gorm.DB) *Model.Product {
+func ProductDummy(db *gorm.DB) *model.Product {
 	user := UserDummy(db)
 	err := db.Create(&user).Error
 	if err != nil {
@@ -21,7 +21,7 @@ func ProductDummy(db *gorm.DB) *Model.Product {
 	}
 
 	name := dummy.Name()
-	return &Model.Product{
+	return &model.Product{
 		ID:               uuid.New().String(),
 		UserID:           user.ID,
 		Sku:              slug.Make(name),

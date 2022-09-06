@@ -1,9 +1,9 @@
-package Controller
+package controller
 
 import (
 	"net/http"
 
-	"github.com/martinustrinc/BE_Test/Shopping/Model"
+	"github.com/martinustrinc/BE_Test/shopping/model"
 	"github.com/unrolled/render"
 )
 
@@ -12,7 +12,7 @@ func (server *Server) Products(w http.ResponseWriter, r *http.Request) {
 		Layout: "layout",
 	})
 
-	productModel := Model.Product{}
+	productModel := model.Product
 	products, err := productModel.GetProducts(server.DB)
 	if err != nil {
 		return
